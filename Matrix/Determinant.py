@@ -36,5 +36,5 @@ try:
     MAT = M.Matrix(num)
     print(MAT)
     D = Determinant(num, MAT)
-finish:
+finally:
     print(D)
