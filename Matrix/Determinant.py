@@ -12,19 +12,14 @@ def Determinant(n, mat):
             mat_tmp.clear()
             mat_tmp = copy.deepcopy(mat_copy)
             tmp = int(mat_tmp[0][i])
+            # 행 삭제
+            del mat_tmp[0]
+            # 열 삭제 
+            for j in range(0, n-1):
+                del mat_tmp[j][i]
             if i%2 == 0: # 짝순열
-                # 행 삭제
-                del mat_tmp[0]
-                # 열 삭제 
-                for j in range(0, n-1):
-                    del mat_tmp[j][i]
                 value.append((tmp*Determinant(n-1, mat_tmp)))
-            else: # 홀순열
-                # 행 삭제
-                del mat_tmp[0]
-                # 열 삭제 
-                for j in range(0, n-1):
-                    del mat_tmp[j][i]
+            else:        # 홀순열
                 value.append(((-1)*tmp*Determinant(n-1, mat_tmp)))
     else:
         return int(int(mat_copy[0][0])*int(mat_copy[1][1])-int(mat_copy[0][1])*int(mat_copy[1][0]))
