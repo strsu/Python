@@ -1,0 +1,55 @@
+import Matrix as M
+import copy
+
+def Cofactor(mat, num, n):
+    mat_copy = copy.deepcopy(mat)
+    value = []
+    comat = []
+    mat_tmp = []
+    if n>=3:
+        for k in range(n):
+            for i in range(n):
+                mat_tmp.clear()
+                mat_tmp = copy.deepcopy(mat_copy)
+                tmp = int(mat_tmp[k][i])
+                # 행 삭제
+                del mat_tmp[k]
+                # 열 삭제 
+                for j in range(0, n-1):
+                    del mat_tmp[j][i]
+                    
+                if i%2 == 0: # 짝순열
+                    if n == num:
+                        value.append((Cofactor(mat_tmp, num, n-1)))
+                    else:    # 소행렬의 소행렬은 행렬식을 구하는방식과 동일
+                        value.append((tmp*Cofactor(mat_tmp, num, n-1)))
+                else:        # 홀순열
+                    if n == num:
+                        value.append(((-1)*Cofactor(mat_tmp, num, n-1)))
+                    else:    # 소행렬의 소행렬은 행렬식을 구하는방식과 동일
+                        value.append(((-1)*tmp*Cofactor(mat_tmp, num, n-1)))
+    else:
+        return int(int(mat_copy[0][0])*int(mat_copy[1][1])-int(mat_copy[0][1])*int(mat_copy[1][0]))
+    
+    D = sum(value, 0)
+    tmp = []
+    if num == n:
+        # 여인수행렬
+        print(value)
+        for i in range(num):
+            for j in range(num):
+                tmp.append(value.pop(0))
+            comat.append(copy.deepcopy(tmp))
+            tmp.clear()
+        return comat
+    else:
+        # 소행렬
+        return D
+
+try:
+    num = int(input())
+    mat = M.Matrix(num)
+    print(mat)
+    com = Cofactor(mat, num, num)
+finally:
+    print("Cofactor: \n",com)
