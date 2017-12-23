@@ -1,5 +1,5 @@
 import copy
-import Maxrix as M
+import Matrix as M
 # 리스트를 복사할때 내장된 list(), copy()를 이용하면 어인일인지 원본도 훼손된다.
 # 따라서 반드시 copy모듈을 이용해 깊은 복사를 해주어야 한다.
 
