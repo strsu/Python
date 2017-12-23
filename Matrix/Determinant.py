@@ -1,22 +1,9 @@
 import copy
+import Maxrix as M
 # 리스트를 복사할때 내장된 list(), copy()를 이용하면 어인일인지 원본도 훼손된다.
 # 따라서 반드시 copy모듈을 이용해 깊은 복사를 해주어야 한다.
 
-def Matrix(n):
-    for i in range(n):
-        str = input()   
-        MAT.append(str.split(' '))
-#  입력 예시
-#
-#  1 2 3 4
-#  5 6 7 8
-#  4 3 2 1
-#  8 7 6 5
-#
-# 행의 원소는 모두 한줄이고 구분은 띄어쓰기를 이용한다.
-
 def Determinant(n, mat):
-    global D
     mat_copy = copy.deepcopy(mat)
     value = []
     mat_tmp = []
@@ -44,13 +31,10 @@ def Determinant(n, mat):
     D = sum(value, 0)
     return D
 
-# global 
-MAT = []
-D = 0
 try:
     num = int(input())
-    Matrix(num)
+    MAT = M.Matrix(num)
     print(MAT)
-    Determinant(num, MAT)
+    D = Determinant(num, MAT)
 finish:
     print(D)
