@@ -1,32 +1,37 @@
 import datetime
 import re
-from bs4 import BeautifulSoup
+import shutil
+import os
 import requests
 import urllib.request
 import urllib.parse
-import shutil
-import os
+from urllib.parse import quote  # korean processing function
+from bs4 import BeautifulSoup
+
 
 def Times():
     name = str(datetime.datetime.now())
     name = re.sub('[-:. ]','', name) + '.jpg'
     return name
 
-
-def Image(search):
-    # make the folder to save image
+def Directory(fileName):
     try:
-        if not(os.path.isdir(search)):
-            os.makedirs(os.path.join(search))
+        if not(os.path.isdir(fileName)):
+            os.makedirs(os.path.join(fileName))
     except OSError as e:
         if e.errno != errno.EEXIST:
             print("Failed to create directory!!!!!")
             raise
+
+def Image(search):
+    # make the folder to save image
+    Directory(search)
     # move the img 'src' to 'des'
-    src = '/home/jj/py/img/'
-    des = '/home/jj/py/img/' + search + '/'
+    src = str(os.getcwd()) + '/'
+    des = str(os.getcwd()) + '/' + search + '/'
+
     # google search url
-    searchUrl = "https://www.google.co.kr/search?q="+search+"&newwindow=1&safe=off&dcr=0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjC_5L0y4HaAhXIy7wKHamZA2gQ_AUICigB&biw=1920&bih=949"
+    searchUrl = "https://www.google.co.kr/search?q="+quote(search)+"&newwindow=1&safe=off&dcr=0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjC_5L0y4HaAhXIy7wKHamZA2gQ_AUICigB&biw=1920&bih=949"
 
     req = urllib.request.Request(searchUrl, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'})
 
